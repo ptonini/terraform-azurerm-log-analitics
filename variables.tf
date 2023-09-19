@@ -7,10 +7,6 @@ variable "rg" {
   })
 }
 
-variable "plan" {
-  default = "Basic"
-}
-
 variable "retention_in_days" {
   default = 7
 }
@@ -23,13 +19,14 @@ variable "sku" {
   default = "Free"
 }
 
-variable "exported_tables" {
-  type    = list(string)
-  default = []
+variable "exports" {
+  type = map(object({
+    destination_id = string
+    table_names = set(string)
+  }))
+  default = {}
 }
 
-variable "export_destination_id" {
-  default = null
+variable "export_plan" {
+  default = "Basic"
 }
-
-variable "subscription" {}
