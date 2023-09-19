@@ -24,7 +24,7 @@ variable "sku" {
 }
 
 variable "exported_tables" {
-  type    = list(string)
+  type    = set(string)
   default = []
 }
 
