@@ -8,7 +8,7 @@ variable "rg" {
 }
 
 variable "retention_in_days" {
-  default = 7
+  default = 30
 }
 
 variable "daily_quota_gb" {
@@ -16,7 +16,7 @@ variable "daily_quota_gb" {
 }
 
 variable "sku" {
-  default = "Free"
+  default = "PerGB2018"
 }
 
 variable "exports" {
