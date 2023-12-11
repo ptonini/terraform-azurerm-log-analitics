@@ -9,7 +9,10 @@ resource "azurerm_log_analytics_workspace" "this" {
   sku                 = var.sku
   lifecycle {
     ignore_changes = [
-      tags
+      tags["business_unit"],
+      tags["environment"],
+      tags["product"],
+      tags["subscription_type"]
     ]
   }
 }
@@ -28,7 +31,7 @@ resource "null_resource" "set_plan" {
   for_each = toset(flatten([for k, v in var.exports : [for t in v.table_names : "${k}-${t}"]]))
   triggers = {
     workspace = azurerm_log_analytics_workspace.this.id
-    plan = var.export_plan
+    plan      = var.export_plan
   }
   provisioner "local-exec" {
     command = "az monitor log-analytics workspace table update --subscription ${data.azurerm_client_config.current.subscription_id} --resource-group ${var.rg.name} --workspace-name ${azurerm_log_analytics_workspace.this.name} --name ${each.key} --plan ${var.export_plan}"

@@ -22,7 +22,7 @@ variable "sku" {
 variable "exports" {
   type = map(object({
     destination_id = string
-    table_names = set(string)
+    table_names    = set(string)
   }))
   default = {}
 }
